@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.version = Charisma::VERSION
   s.platform = Gem::Platform::RUBY
   s.date = '2011-03-21'
-  s.authors = ['Andy Rossmeissl']
+  s.authors = ['Andy Rossmeissl', 'Seamus Abshere']
   s.email = 'andy@rossmeissl.net'
-  s.homepage = 'http://github.com/andy/charisma'
-  s.summary = %Q{TODO: one-line summary of your gem}
-  s.description = %Q{TODO: detailed description of your gem}
+  s.homepage = 'http://github.com/brighterplanet/charisma'
+  s.summary = %Q{TODO: Curate your rich Ruby objects' attributes}
+  s.description = %Q{TODO: Define strategies for accessing and displaying a subset of your classes' attributes}
   s.extra_rdoc_files = [
     'LICENSE',
     'README.rdoc',
