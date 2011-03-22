@@ -29,5 +29,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bueller'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rcov'
+  s.add_development_dependency 'supermodel'
 end
 

@@ -1,9 +1,55 @@
 require 'rubygems'
 require 'test/unit'
+require 'supermodel'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'charisma'
 
 class Test::Unit::TestCase
+end
+
+class Spaceship < SuperModel::Base
+  attributes :window_count, :name, :size
+  belongs_to :make, :class_name => 'SpaceshipMake'
+  belongs_to :fuel, :class_name => 'SpaceshipFuel'
+  belongs_to :destination, :class_name => 'Planet'
+  
+  include Charisma
+  characterize do
+    has :make, :via => :name
+    has :fuel
+    has :window_count do |window_count|
+      "#{window_count} windows"
+    end
+    has :size, :measures => :length
+    has :weight, :as => Charisma::Types::Mass do |weight|
+      weight.to_f.round
+    end
+    has :name
+    has :destination
+  end
+end
+
+class SpaceshipMake < SuperModel::Base
+  has_many :spaceships
+  attributes :name
+end
+
+class SpaceshipFuel < SuperModel::Base
+  has_many :spaceships
+  attributes :name, :emission_factor
+  
+  def as_characteristic
+    "#{name} (#{emission_factor} kg CO2/L)"
+  end
+end
+
+class Planet < SuperModel::Base
+  has_many :spaceships
+  attributes :name
+  
+  def to_s
+    name
+  end
 end
