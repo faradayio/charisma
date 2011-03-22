@@ -8,7 +8,19 @@ module Charisma
         @characteristic = characteristic
       end
       
-      def to_s
+      delegate :to_s, :units, :u, :to => :render
+      
+      def method_missing(*args)
+        begin
+          render.send(*args)
+        rescue NoMethodError
+          super
+        end
+      end
+      
+      private
+      
+      def render
         if characteristic.proc
           render_proc
         elsif characteristic.accessor
@@ -22,33 +34,31 @@ module Charisma
         end
       end
       
-      private
-      
       def render_proc
-        characteristic.proc.call(value).to_s
+        characteristic.proc.call(value)
       end
       
       def use_accessor
-        value.send(characteristic.accessor).to_s
+        value.send(characteristic.accessor)
       end
       
       def defer_to_measurement
         case characteristic.measurement
         when Class
-          value.extend(characteristic.measurement).to_s
+          characteristic.measurement.new(value)
         when Symbol
-          value.extend("Charisma::Measurements::#{characteristic.measurement.to_s.camelize}".constantize).to_s
+          "Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize.new(value)
         else
           raise InvalidMeasurementError
         end
       end
       
       def defer_to_value
-        value.as_characteristic.to_s
+        value.as_characteristic
       end
       
       def render_value
-        value.to_s
+        value
       end
     end
   end

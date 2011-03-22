@@ -5,7 +5,7 @@ module Charisma
     def initialize(name, options, &blk)
       @name = name
       @proc = blk if block_given?
-      @accessor = options[:display_method]
+      @accessor = options[:display_with]
       @measurement = options[:measures]
     end
   end

@@ -6,6 +6,10 @@ module Charisma
       @characteristics = {}
     end
     
+    def [](name)
+      characteristics[name]
+    end
+    
     include Blockenspiel::DSL
     def has(name, options = {}, &blk)
       name = name.to_sym

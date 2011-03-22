@@ -10,7 +10,7 @@ class Test::Unit::TestCase
 end
 
 class RelativeAstronomicMass < Charisma::Measurement # or don't inherit and provide everything yourself
-  units :kilograms
+  units :hollagrams => 'hg' 
   # before_ and after_ filters or some other reason to use this as opposed to Charisma::Measurements::Mass
 end
 
@@ -37,11 +37,13 @@ end
 class SpaceshipMake < SuperModel::Base
   has_many :spaceships
   attributes :name
+  self.primary_key = :name 
 end
 
 class SpaceshipFuel < SuperModel::Base
   has_many :spaceships
   attributes :name, :emission_factor
+  self.primary_key = :name 
   
   def as_characteristic
     "#{name} (#{emission_factor} kg CO2/L)"
@@ -51,8 +53,11 @@ end
 class Planet < SuperModel::Base
   has_many :spaceships
   attributes :name
+  self.primary_key = :name 
   
   def to_s
     name
   end
 end
+
+Conversions.register :hollagrams, :supertons, 2
