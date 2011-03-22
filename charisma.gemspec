@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors = ['Andy Rossmeissl', 'Seamus Abshere']
   s.email = 'andy@rossmeissl.net'
   s.homepage = 'http://github.com/brighterplanet/charisma'
-  s.summary = %Q{TODO: Curate your rich Ruby objects' attributes}
-  s.description = %Q{TODO: Define strategies for accessing and displaying a subset of your classes' attributes}
+  s.summary = %Q{Curate your rich Ruby objects' attributes}
+  s.description = %Q{Define strategies for accessing and displaying a subset of your classes' attributes}
   s.extra_rdoc_files = [
     'LICENSE',
     'README.rdoc',
