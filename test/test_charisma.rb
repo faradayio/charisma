@@ -10,7 +10,7 @@ class TestCharisma < Test::Unit::TestCase
     assert_equal '10 m', spaceship.characteristics[:size].to_s
   end
   def test_classified_attribute
-    spaceship = Spaceship.new :weight => '1000000.1' # kg
+    spaceship = Spaceship.new :weight => 1_000_000 # kg
     assert_equal '1,000,000 kg', spaceship.characteristics[:weight].to_s
   end
   def test_units
