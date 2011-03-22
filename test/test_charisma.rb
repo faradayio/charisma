@@ -13,6 +13,12 @@ class TestCharisma < Test::Unit::TestCase
     spaceship = Spaceship.new :weight => '1000000.1' # kg
     assert_equal '1,000,000 kg', spaceship.characteristics[:weight].to_s
   end
+  def test_units
+    spaceship = Spaceship.new :weight => '1000000.1' # kg
+    assert_equal :kilograms, spaceship.characteristics[:weight].units
+    assert_equal 'kg', spaceship.characteristics[:weight].u
+    assert_equal 1_102, spaceship.characteristics[:weight].tons.round
+  end
   def test_attribute_with_custom_display
     spaceship = Spaceship.new :window_count => 10
     assert_equal '10 windows', spaceship.characteristics[:window_count].to_s
