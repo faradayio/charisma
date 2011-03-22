@@ -11,13 +11,13 @@ end
 
 class Spaceship < SuperModel::Base
   attributes :window_count, :name, :size
-  belongs_to :make, :class_name => 'SpaceshipMake'
-  belongs_to :fuel, :class_name => 'SpaceshipFuel'
-  belongs_to :destination, :class_name => 'Planet'
+  belongs_to :make, :class_name => 'SpaceshipMake', :primary_key => 'name'
+  belongs_to :fuel, :class_name => 'SpaceshipFuel', :primary_key => 'name'
+  belongs_to :destination, :class_name => 'Planet', :primary_key => 'name'
   
   include Charisma
   characterize do
-    has :make, :via => :name
+    has :make, :display_with => :name
     has :fuel
     has :window_count do |window_count|
       "#{window_count} windows"
