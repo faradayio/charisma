@@ -16,7 +16,7 @@ class RelativeAstronomicMass < Charisma::Measurement # or don't inherit and prov
 end
 
 class Spaceship < SuperModel::Base
-  attributes :window_count, :name, :size
+  attributes :window_count, :name, :size, :weight
   belongs_to :make, :class_name => 'SpaceshipMake', :primary_key => 'name'
   belongs_to :fuel, :class_name => 'SpaceshipFuel', :primary_key => 'name'
   belongs_to :destination, :class_name => 'Planet', :primary_key => 'name'

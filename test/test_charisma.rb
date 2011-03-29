@@ -1,10 +1,6 @@
 require 'helper'
 
 class TestCharisma < Test::Unit::TestCase
-  def test_000_characteristics_keys
-    spaceship = Spaceship.new :name => 'Amaroq'
-    assert_equal [:fuel, :destination, :make, :weight, :size, :name, :window_count].sort_by { |k| k.to_s }, spaceship.characteristics.keys.sort_by { |k| k.to_s }
-  end
   def test_001_simple_attribute_characteristic
     spaceship = Spaceship.new :name => 'Amaroq'
     assert_equal 'Amaroq', spaceship.characteristics[:name].to_s
@@ -53,5 +49,18 @@ class TestCharisma < Test::Unit::TestCase
     planet = Planet.create :name => 'Pluto'
     spaceship = Spaceship.new :destination => planet
     assert_equal BigDecimal('1.31e+1_022'), spaceship.characteristics[:destination].mass
+  end
+  def test_012_missing_characteristics_come_back_as_nil
+    spaceship = Spaceship.new :name => 'Amaroq'
+    assert_equal nil, spaceship.characteristics[:size]
+  end
+  def test_013_characteristics_keys
+    spaceship = Spaceship.new :name => 'Amaroq'
+    assert_equal [:name].sort_by { |k| k.to_s }, spaceship.characteristics.keys.sort_by { |k| k.to_s }
+    spaceship.weight = 1_000_000
+    assert_equal [:name, :weight].sort_by { |k| k.to_s }, spaceship.characteristics.keys.sort_by { |k| k.to_s }
+  end
+  def test_014_characterization_keys
+    assert_equal [:destination, :fuel, :make, :name, :size, :weight, :window_count].sort_by { |k| k.to_s }, Spaceship.characterization.keys.sort_by { |k| k.to_s }
   end
 end

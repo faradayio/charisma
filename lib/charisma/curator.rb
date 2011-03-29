@@ -4,16 +4,25 @@ module Charisma
       @subject = subject
     end
         
-    def [](name)
-      Curation.new @subject.send(name), @subject.class.characterization[name]
+    def [](key)
+      if value = @subject.send(key)
+        Curation.new value, @subject.class.characterization[key]
+      end
     end
     
     def keys
-      @subject.class.characterization.keys
+      @subject.class.characterization.keys.select do |key|
+        !!@subject.send(key)
+      end
     end
 
-    def slice(*k)
-      k.inject({}) { |memo, k| memo[k] = self[k]; memo }
+    def slice(*keys)
+      keys.inject({}) do |memo, key|
+        if curation = self[key]
+          memo[key] = curation
+        end
+        memo
+      end
     end
   end
 end
