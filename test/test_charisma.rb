@@ -42,4 +42,7 @@ class TestCharisma < Test::Unit::TestCase
     spaceship = Spaceship.new :fuel => fuel
     assert_equal 'Kerosene (10 kg CO2/L)', spaceship.characteristics[:fuel].to_s
   end
+  def test_009_number_helper
+    assert_equal '1,000', Charisma::NumberHelper.delimit(1_000)
+  end
 end
