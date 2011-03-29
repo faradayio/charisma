@@ -63,4 +63,8 @@ class TestCharisma < Test::Unit::TestCase
   def test_014_characterization_keys
     assert_equal [:destination, :fuel, :make, :name, :size, :weight, :window_count].sort_by { |k| k.to_s }, Spaceship.characterization.keys.sort_by { |k| k.to_s }
   end
+  def test_015_to_hash_preserving_curation
+    spaceship = Spaceship.new :name => 'Amaroq'
+    assert_equal 'Amaroq', spaceship.characteristics.to_hash[:name].to_s
+  end
 end
