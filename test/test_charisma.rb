@@ -45,4 +45,8 @@ class TestCharisma < Test::Unit::TestCase
   def test_009_number_helper
     assert_equal '1,000', Charisma::NumberHelper.delimit(1_000)
   end
+  def test_010_characteristics_slice
+    spaceship = Spaceship.new :name => 'Amaroq'
+    assert_equal 'Amaroq', spaceship.characteristics.slice(:name)[:name].to_s
+  end
 end
