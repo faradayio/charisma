@@ -7,5 +7,9 @@ module Charisma
     def [](name)
       Curation.new @subject.send(name), @subject.class.characterization[name]
     end
+    
+    def keys
+      @subject.class.characterization.keys
+    end
   end
 end
