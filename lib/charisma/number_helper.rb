@@ -1,10 +1,5 @@
 require 'action_pack'
-require 'action_pack/version'
-%w{
-  action_view/helpers/number_helper
-}.each do |action_pack_3_requirement|
-  require action_pack_3_requirement
-end if ActionPack::VERSION::MAJOR == 3
+require 'action_view'
 
 module Charisma
   class NumberHelper
