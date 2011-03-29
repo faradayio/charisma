@@ -49,4 +49,9 @@ class TestCharisma < Test::Unit::TestCase
     spaceship = Spaceship.new :name => 'Amaroq'
     assert_equal 'Amaroq', spaceship.characteristics.slice(:name)[:name].to_s
   end
+  def test_011_associated_object_methods
+    planet = Planet.create :name => 'Pluto'
+    spaceship = Spaceship.new :destination => planet
+    assert_equal BigDecimal('1.31e+1_022'), spaceship.characteristics[:destination].mass
+  end
 end
