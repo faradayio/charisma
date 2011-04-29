@@ -1,12 +1,9 @@
-require 'action_pack'
-require 'action_view'
-
 module Charisma
   class NumberHelper
-    extend ActionView::Helpers::NumberHelper
-    
     def self.delimit(number)
-      number_with_delimiter number, :delimiter => ",", :separator => "."
+      parts = number.to_s.split('.')
+      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+      parts.join('.')
     end
   end
 end

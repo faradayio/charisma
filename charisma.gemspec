@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   
   s.add_dependency 'activesupport'
-  s.add_dependency 'actionpack'
   s.add_dependency 'blockenspiel'
   s.add_dependency 'conversions'
 
