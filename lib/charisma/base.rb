@@ -1,7 +1,7 @@
 module Charisma
   module Base
     def characteristics
-      @curator ||= Curator.new(self)
+      @curator ||= Hash.new.extend(Curator).init(self)
     end
   end
   

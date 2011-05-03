@@ -21,6 +21,7 @@ require 'charisma/measurement/length'
 require 'charisma/curator'
 require 'charisma/curator/curation'
 require 'charisma/number_helper'
+require 'charisma/core_ext'
 
 module Charisma
   def self.included(base)

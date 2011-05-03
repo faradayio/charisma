@@ -1,26 +1,20 @@
 module Charisma
-  class Curator
-    class Curation
+  module Curator
+    module Curation
       attr_reader :value, :characteristic
       
-      def initialize(value, characteristic)
-        @value = value
+      def init(characteristic = nil)
         @characteristic = characteristic
+        self
       end
       
       delegate :to_s, :units, :u, :to => :render
       
-      def method_missing(*args)
-        begin
-          render.send(*args)
-        rescue NoMethodError
-          super
-        end
-      end
-      
       private
       
       def render
+        return self unless characteristic
+        return characteristic if characteristic.is_a? Fixnum
         if characteristic.proc
           render_proc
         elsif characteristic.accessor
@@ -35,30 +29,37 @@ module Charisma
       end
       
       def render_proc
-        characteristic.proc.call(value)
+        characteristic.proc.call(self)
       end
       
       def use_accessor
-        value.send(characteristic.accessor)
+        send(characteristic.accessor)
       end
       
       def defer_to_measurement
         case characteristic.measurement
         when Class
-          characteristic.measurement.new(value)
+          characteristic.measurement.new(self)
         when Symbol
-          "Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize.new(value)
+          "Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize.new(self)
         else
           raise InvalidMeasurementError
         end
       end
       
       def defer_to_value
-        value.as_characteristic
+        as_characteristic
       end
       
       def render_value
-        value
+        self
+      end
+      
+      class Proxy
+        include Curation
+        def initialize(value)
+          @characteristic = value
+        end
       end
     end
   end

@@ -1,38 +1,29 @@
 module Charisma
-  class Curator
-    attr_reader :subject
+  module Curator
+    def subject; @subject end
     
-    def initialize(subject)
+    def init(subject)
       @subject = subject
-    end
-        
-    def [](key)
-      if value = subject.send(key)
-        Curation.new value, subject.class.characterization[key]
-      end
-    end
-        
-    def keys
-      subject.class.characterization.keys.select do |key|
-        !!subject.send(key)
-      end
-    end
-
-    def slice(*only_keys)
-      only_keys.inject({}) do |memo, key|
-        if curation = self[key]
-          memo[key] = curation
+      subject.characterization.keys.each do |key|
+        if value = subject.send(key)
+          self[key] = value
         end
-        memo
       end
+      self
     end
     
-    def to_hash
-      subject.class.characterization.keys.inject({}) do |memo, key|
-        if curation = self[key]
-          memo[key] = curation
-        end
-        memo        
+    def []=(key, value)
+      super key, curate(key, value)
+    end
+    
+    private
+    
+    def curate(key, value)
+      case value
+      when Fixnum #, TrueClass, NilClass, FalseClass
+        value.instance_variable_set :@charisma, [subject, subject.class.characterization[key]]
+      else
+        value.extend(Curation).init(subject.class.characterization[key])
       end
     end
   end

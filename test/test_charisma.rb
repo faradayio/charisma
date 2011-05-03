@@ -42,8 +42,10 @@ class TestCharisma < Test::Unit::TestCase
     assert_equal '1,000', Charisma::NumberHelper.delimit(1_000)
   end
   def test_010_characteristics_slice
-    spaceship = Spaceship.new :name => 'Amaroq'
-    assert_equal 'Amaroq', spaceship.characteristics.slice(:name)[:name].to_s
+    spaceship = Spaceship.new :name => 'Amaroq', :window_count => 2, :size => 10
+    assert_equal '10 m', spaceship.characteristics.slice(:size, :window_count)[:size].to_s
+    assert_equal nil, spaceship.characteristics.slice(:size, :window_count)[:name]
+    assert_equal 2, spaceship.characteristics.slice(:size, :window_count).values.length
   end
   def test_011_associated_object_methods
     planet = Planet.create :name => 'Pluto'
@@ -57,14 +59,8 @@ class TestCharisma < Test::Unit::TestCase
   def test_013_characteristics_keys
     spaceship = Spaceship.new :name => 'Amaroq'
     assert_equal [:name].sort_by { |k| k.to_s }, spaceship.characteristics.keys.sort_by { |k| k.to_s }
-    spaceship.weight = 1_000_000
-    assert_equal [:name, :weight].sort_by { |k| k.to_s }, spaceship.characteristics.keys.sort_by { |k| k.to_s }
   end
   def test_014_characterization_keys
     assert_equal [:destination, :fuel, :make, :name, :size, :weight, :window_count].sort_by { |k| k.to_s }, Spaceship.characterization.keys.sort_by { |k| k.to_s }
-  end
-  def test_015_to_hash_preserving_curation
-    spaceship = Spaceship.new :name => 'Amaroq'
-    assert_equal 'Amaroq', spaceship.characteristics.to_hash[:name].to_s
   end
 end
