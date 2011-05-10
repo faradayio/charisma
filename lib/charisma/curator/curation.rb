@@ -20,7 +20,7 @@ module Charisma
       
       # Delegator methods
       def __getobj__; value end
-      def __setobj__(obj); value = obj end
+      def __setobj__(obj); self.value = obj end
       
       private
       
