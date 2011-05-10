@@ -4,7 +4,7 @@ module Charisma
     attr_reader :subject, :characteristics
     
     def initialize(subject)
-      @characteristics = {}
+      @characteristics = {}.extend LooseEquality
       @subject = subject
       subject.class.characterization.keys.each do |key|
         if value = subject.send(key)
@@ -24,6 +24,15 @@ module Charisma
     def to_s; inspect end
     
     extend Forwardable
-    delegate [:[], :keys, :slice, :==] => :characteristics 
+    delegate [:[], :keys, :slice, :==] => :characteristics
+    
+    module LooseEquality
+      def ==(other)
+        return false unless keys.sort == other.keys.sort
+        keys.all? do |k|
+          self[k] == other[k]
+        end
+      end
+    end
   end
 end
