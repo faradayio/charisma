@@ -1,30 +1,29 @@
+require 'forwardable'
 module Charisma
-  module Curator
-    def subject; @subject end
+  class Curator
+    attr_reader :subject, :characteristics
     
-    def init(subject)
+    def initialize(subject)
+      @characteristics = {}
       @subject = subject
-      subject.characterization.keys.each do |key|
+      subject.class.characterization.keys.each do |key|
         if value = subject.send(key)
           self[key] = value
         end
       end
-      self
     end
     
     def []=(key, value)
-      super key, curate(key, value)
+      characteristics[key] = Curation.new value, subject.class.characterization[key]
     end
     
-    private
-    
-    def curate(key, value)
-      case value
-      when Fixnum #, TrueClass, NilClass, FalseClass
-        value.instance_variable_set :@charisma, [subject, subject.class.characterization[key]]
-      else
-        value.extend(Curation).init(subject.class.characterization[key])
-      end
+    def inspect
+      "<Charisma:Curator #{keys.length} known characteristic(s)>"
     end
+    
+    def to_s; inspect end
+    
+    extend Forwardable
+    delegate [:[], :keys, :slice] => :characteristics 
   end
 end

@@ -1,20 +1,38 @@
+require 'delegate'
 module Charisma
-  module Curator
-    module Curation
-      attr_reader :value, :characteristic
+  class Curator
+    class Curation < Delegator
+      extend Forwardable
+      attr_accessor :value
+      attr_reader :characteristic
       
-      def init(characteristic = nil)
+      def initialize(value, characteristic = nil)
         @characteristic = characteristic
-        self
+        establish_units_methods if characteristic && characteristic.measurement
+        self.value = value
       end
       
-      delegate :to_s, :units, :u, :to => :render
+      delegate [:to_s] => :render
+
+      def inspect
+        "<Charisma::Curator::Curation for :#{characteristic.name} (use #to_s to render value of #{value.class})>"
+      end
+      
+      # Delegator methods
+      def __getobj__; value end
+      def __setobj__(obj); value = obj end
       
       private
       
+      def establish_units_methods
+        self.class.delegate [:u, :units] => :render
+        if conversions = Conversions.conversions[units.to_sym]
+          self.class.delegate conversions.keys => :render
+        end
+      end
+      
       def render
-        return self unless characteristic
-        return characteristic if characteristic.is_a? Fixnum
+        return value unless characteristic
         if characteristic.proc
           render_proc
         elsif characteristic.accessor
@@ -29,37 +47,34 @@ module Charisma
       end
       
       def render_proc
-        characteristic.proc.call(self)
+        characteristic.proc.call(value)
       end
       
       def use_accessor
-        send(characteristic.accessor)
+        value.send(characteristic.accessor)
       end
       
       def defer_to_measurement
+        measurement_class.new(value)
+      end
+      
+      def measurement_class
         case characteristic.measurement
         when Class
-          characteristic.measurement.new(self)
+          characteristic.measurement
         when Symbol
-          "Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize.new(self)
+          "Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize
         else
           raise InvalidMeasurementError
         end
       end
       
       def defer_to_value
-        as_characteristic
+        value.as_characteristic
       end
       
       def render_value
-        self
-      end
-      
-      class Proxy
-        include Curation
-        def initialize(value)
-          @characteristic = value
-        end
+        value
       end
     end
   end

@@ -52,6 +52,11 @@ class TestCharisma < Test::Unit::TestCase
     spaceship = Spaceship.new :destination => planet
     assert_equal BigDecimal('1.31e+1_022'), spaceship.characteristics[:destination].mass
   end
+  def test_011_characteristic_arithmetic
+    amaroq = Spaceship.new :window_count => 8
+    geo = Spaceship.new :window_count => 6
+    assert_equal 2, amaroq.characteristics[:window_count] - geo.characteristics[:window_count]
+  end
   def test_012_missing_characteristics_come_back_as_nil
     spaceship = Spaceship.new :name => 'Amaroq'
     assert_equal nil, spaceship.characteristics[:size]

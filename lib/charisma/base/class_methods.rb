@@ -3,7 +3,7 @@ module Charisma
     module ClassMethods
       def self.extended(base)
         base.send :class_variable_set, :@@characterization, Characterization.new
-        base.send :cattr_reader, :characterization
+        base.send :cattr_reader, :characterization, :instance_reader => false
       end
       def characterize(&blk)
         Blockenspiel.invoke(blk, characterization) if block_given?
