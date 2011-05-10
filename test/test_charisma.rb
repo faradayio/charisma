@@ -68,4 +68,9 @@ class TestCharisma < Test::Unit::TestCase
   def test_014_characterization_keys
     assert_equal [:destination, :fuel, :make, :name, :size, :weight, :window_count].sort_by { |k| k.to_s }, Spaceship.characterization.keys.sort_by { |k| k.to_s }
   end
+  def test_015_characteristic_equality
+    amaroq = Spaceship.new :window_count => 8
+    buster = Spaceship.new :window_count => 8
+    assert_equal amaroq.characteristics, buster.characteristics
+  end
 end
