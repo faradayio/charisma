@@ -27,3 +27,5 @@ module Charisma
     base.extend Base::ClassMethods
   end
 end
+
+Conversions.register :meters, :feet, 3.2808399
