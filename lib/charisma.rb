@@ -25,9 +25,9 @@ require 'charisma/number_helper'
 #
 # You can use it to:
 #
-#     * Provide a <em>curation strategy</em> for your class that defines which of its attributes are <em>superfically important.</em>
-#     * Define <em>metadata</em> on these characteristics, such as measurements and units.
-#     * Facilitate <em>appropriate presentation</em> of these characteristics (i.e., intelligent <tt>#to_s</tt>).
+#  * Provide a <em>curation strategy</em> for your class that defines which of its attributes are <em>superfically important.</em>
+#  * Define <em>metadata</em> on these characteristics, such as measurements and units.
+#  * Facilitate <em>appropriate presentation</em> of these characteristics (i.e., intelligent <tt>#to_s</tt>).
 module Charisma
   # Prepare a class for characterization with <tt>include Charisma</tt>.
   def self.included(base)
