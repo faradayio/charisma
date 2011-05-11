@@ -1,4 +1,4 @@
-= Charisma
+# Charisma
 
 Charisma provides a *superficiality framework* for Ruby objects. You can use it to:
 
@@ -6,6 +6,6 @@ Charisma provides a *superficiality framework* for Ruby objects. You can use it 
 * Define *metadata* on these characteristics, such as measurements and units.
 * Facilitate *appropriate presentation* of these characteristics (i.e., intelligent `#to_s`).
 
-== Copyright
+## Copyright
 
 Copyright (c) 2011 Andy Rossmeissl. See LICENSE for details.
