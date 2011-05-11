@@ -8,6 +8,8 @@ Charisma provides a *superficiality framework* for Ruby objects. You can use it 
 
 Charisma is all about how your objects look to the outside world. We use it within [CM1](http://carbon.brighterplanet.com) to facilitate the characterization of the flights, cars, etc. that we're performing carbon calculations on.
 
+See also: [RDocs](http://rubydoc.info/github/brighterplanet/charisma/master/frames).
+
 ## Example
 
 ``` ruby
