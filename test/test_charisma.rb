@@ -73,4 +73,11 @@ class TestCharisma < Test::Unit::TestCase
     buster = Spaceship.new :window_count => 8
     assert_equal amaroq.characteristics, buster.characteristics
   end
+  def test_016_inspection_of_undefined_characteristic
+    muktruk = Spaceship.new
+    muktruk.characteristics[:bumper_sticker] = 'LT'
+    assert_nothing_raised do
+      muktruk.characteristics[:bumper_sticker].inspect
+    end
+  end
 end
