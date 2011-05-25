@@ -28,6 +28,9 @@ class Spaceship < SuperModel::Base
     has :window_count do |window_count|
       "#{window_count} windows"
     end
+  end
+  
+  characterize do
     has :size, :measures => :length # uses Charisma::Measurements::Length
     has :weight, :measures => RelativeAstronomicMass
     has :name
