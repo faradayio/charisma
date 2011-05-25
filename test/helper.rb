@@ -35,6 +35,7 @@ class Spaceship < SuperModel::Base
     has :weight, :measures => RelativeAstronomicMass
     has :name
     has :destination
+    has :color
   end
 end
 

@@ -20,7 +20,7 @@ module Charisma
       @characteristics = {}.extend LooseEquality
       @subject = subject
       subject.class.characterization.keys.each do |key|
-        if value = subject.send(key)
+        if subject.respond_to?(key) and value = subject.send(key)
           self[key] = value
         end
       end
