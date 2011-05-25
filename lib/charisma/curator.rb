@@ -17,7 +17,7 @@ module Charisma
     # @param [Object] The subject of the curation -- an instance of a characterized class
     # @see Charisma::Base#characteristics
     def initialize(subject)
-      @characteristics = {}.extend LooseEquality
+      @characteristics = LooseHash.new
       @subject = subject
       subject.class.characterization.keys.each do |key|
         if subject.respond_to?(key) and value = subject.send(key)
@@ -46,9 +46,14 @@ module Charisma
     
     # Loose equality for Hashlike objects
     #
+    # Implemented with inheritance rather than extending at runtime because of
+    # * performance - extending clears the method cache in MRI 1.8/1.9 and JRuby (pg. 26 of http://www.scribd.com/doc/15335785/What-Makes-Ruby-Go-An-Implementation-Primer)
+    # * memory leak - affects MRI 1.9 before r26515 (http://redmine.ruby-lang.org/issues/1392)
+    # In other words, every time you instantiate a Curator you would clear the whole method cache.
+    #
     # <tt>Hash#==</tt> as defined in Ruby core is very, very strict: it uses <tt>Object#==</tt> on each of its values to determine equality.
-    # This module overrides <tt>#==</tt> to loosen this evaluation.
-    module LooseEquality
+    # This class overrides <tt>#==</tt> to loosen this evaluation.
+    class LooseHash < Hash
       # Determine equality with another Hashlike object, loosely.
       #
       # Unlike Ruby's own <tt>Hash#==</tt>, this method uses the values' native <tt>#==</tt> methods, where available, to determine equality.
