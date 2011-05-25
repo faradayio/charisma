@@ -30,7 +30,11 @@ module Charisma
 
       # An inspection method for more readable IRB sessions and logs.
       def inspect
-        "<Charisma::Curator::Curation for :#{characteristic.name} (use #to_s to render value of #{value.class})>"
+        if characteristic
+          "<Charisma::Curator::Curation for :#{characteristic.name} (use #to_s to render value of #{value.class})>"
+        else
+          "<Charisma::Curator::Curation for undefined characteristic (use #to_s to render value of #{value.class})>"
+        end          
       end
       
       # Delegator method
