@@ -80,4 +80,13 @@ class TestCharisma < Test::Unit::TestCase
       muktruk.characteristics[:bumper_sticker].inspect
     end
   end
+  def test_017_each
+    spaceship = Spaceship.new :name => 'Amaroq'
+    catch :blam do
+      spaceship.characteristics.each do |k, v|
+        throw :blam if k == :name
+      end
+      flunk
+    end
+  end
 end
