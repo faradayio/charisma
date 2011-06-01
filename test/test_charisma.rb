@@ -89,4 +89,10 @@ class TestCharisma < Test::Unit::TestCase
       flunk
     end
   end
+  def test_018_double_bag
+    geo = SpaceshipMake.create :name => 'Geo'
+    g = Spaceship.new :make => geo
+    g.characteristics[:name] = g.characteristics[:make]
+    assert_equal 'Geo', g.characteristics[:name].to_s
+  end
 end
