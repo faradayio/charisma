@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name = 'charisma'
   s.version = Charisma::VERSION
   s.platform = Gem::Platform::RUBY
-  s.date = "2011-05-11"
+  s.date = "2011-06-02"
   s.authors = ['Andy Rossmeissl', 'Seamus Abshere']
   s.email = 'andy@rossmeissl.net'
   s.homepage = 'http://github.com/brighterplanet/charisma'
