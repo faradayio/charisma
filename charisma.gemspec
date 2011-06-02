@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = %Q{Define strategies for accessing and displaying a subset of your classes' attributes}
   s.extra_rdoc_files = [
     'LICENSE',
-    'README.rdoc',
+    'README.markdown',
   ]
 
   s.required_rubygems_version = Gem::Requirement.new('>= 1.3.7')
