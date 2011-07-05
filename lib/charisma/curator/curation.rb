@@ -89,10 +89,10 @@ module Charisma
       # @return [Class]
       def measurement_class
         case characteristic.measurement
-        when Class
+        when ::Class
           characteristic.measurement
-        when Symbol
-          "Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize
+        when ::Symbol
+          "::Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize
         else
           raise InvalidMeasurementError
         end
