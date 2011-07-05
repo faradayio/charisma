@@ -5,8 +5,8 @@ module Charisma
     #
     # Implements the Delegator pattern, with uncaught methods delegated to the characteristic's computed value.
     # (Undocumented below is that <tt>#to_s</tt> is specifically delegated to <tt>#render</tt>.)
-    class Curation < Delegator
-      extend Forwardable
+    class Curation < ::Delegator
+      extend ::Forwardable
       
       # The computed value of the characteristic
       attr_accessor :value
@@ -26,7 +26,11 @@ module Charisma
         self.value = value
       end
       
-      delegate [:to_s] => :render
+      def_delegators :render, :to_s
+
+      def ==(other)
+        self.value == other.value
+      end
 
       # An inspection method for more readable IRB sessions and logs.
       def inspect
@@ -47,9 +51,9 @@ module Charisma
       
       # If this curation deals with a measured characteristic, this method will delegate <tt>#u</tt>, <tt>#units</tt>, and appropriate unit-name methods to <tt>#render</tt>.
       def establish_units_methods
-        self.class.delegate [:u, :units] => :render
+        self.class.def_delegators :render, :u, :units
         if conversions = Conversions.conversions[units.to_sym]
-          self.class.delegate conversions.keys => :render
+          self.class.def_delegators :render, *conversions.keys
         end
       end
       

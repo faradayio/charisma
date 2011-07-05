@@ -41,8 +41,8 @@ module Charisma
     # (see #inpsect)
     def to_s; inspect end
     
-    extend Forwardable
-    delegate [:[], :keys, :slice, :==, :each] => :characteristics
+    extend ::Forwardable
+    def_delegators :characteristics, :[], :keys, :slice, :==, :each
     
     # Loose equality for Hashlike objects
     #
