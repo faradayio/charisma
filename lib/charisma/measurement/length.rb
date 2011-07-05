@@ -1,8 +1,8 @@
 module Charisma
   class Measurement
-    # Length, in meters.
+    # Length, in metres.
     class Length < Measurement
-      units :meters => 'm'
+      units :metres => 'm'
     end
   end
 end

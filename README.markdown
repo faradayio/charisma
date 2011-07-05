@@ -116,7 +116,7 @@ end
 ```
 ``` ruby
 class Length < Charisma::Measurement # Don't need to inherit if you want to DIY
-  units :meters => 'm' 
+  units :metres => 'm' 
 end
 ```
 ``` irb

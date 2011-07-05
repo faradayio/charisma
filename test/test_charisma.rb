@@ -6,7 +6,7 @@ class TestCharisma < Test::Unit::TestCase
     assert_equal 'Amaroq', spaceship.characteristics[:name].to_s
   end
   def test_002_measured_attribute
-    spaceship = Spaceship.new :size => 10 # meters
+    spaceship = Spaceship.new :size => 10 # metres
     assert_equal '10 m', spaceship.characteristics[:size].to_s
   end
   def test_003_classified_attribute

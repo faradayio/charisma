@@ -35,4 +35,4 @@ module Charisma
   end
 end
 
-Conversions.register :meters, :feet, 3.2808399
+Conversions.register :metres, :feet, 3.2808399
