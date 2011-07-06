@@ -29,7 +29,9 @@ module Charisma
       def_delegators :render, :to_s
 
       def ==(other)
-        self.value == other.value
+        a = self.value
+        b = other.respond_to?(:value) ? other.value : other
+        a == b
       end
 
       # An inspection method for more readable IRB sessions and logs.

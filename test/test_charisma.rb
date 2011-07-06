@@ -95,4 +95,8 @@ class TestCharisma < Test::Unit::TestCase
     g.characteristics[:name] = g.characteristics[:make]
     assert_equal 'Geo', g.characteristics[:name].to_s
   end
+  def test_019_compare_fixnum
+    amaroq = Spaceship.new :window_count => 8
+    assert(amaroq.characteristics == { :window_count => 8 })
+  end
 end
