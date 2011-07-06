@@ -86,20 +86,7 @@ module Charisma
       
       # Render the value using its specified measurement.
       def defer_to_measurement
-        measurement_class.new(value)
-      end
-      
-      # The subclass of <tt>Charisma::Measurement</tt> with which this curation's characteristic is measured.
-      # @return [Class]
-      def measurement_class
-        case characteristic.measurement
-        when ::Class
-          characteristic.measurement
-        when ::Symbol
-          "::Charisma::Measurement::#{characteristic.measurement.to_s.camelize}".constantize
-        else
-          raise InvalidMeasurementError
-        end
+        characteristic.measurement_class.new(value)
       end
       
       # Render the value using its <tt>#as_characteristic</tt> method.

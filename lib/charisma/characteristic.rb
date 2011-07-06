@@ -34,5 +34,18 @@ module Charisma
       @accessor = options[:display_with]
       @measurement = options[:measures]
     end
+    
+    # The subclass of <tt>Charisma::Measurement</tt> with which this curation's characteristic is measured.
+    # @return [Class]
+    def measurement_class
+      case measurement
+      when ::Class
+        measurement
+      when ::Symbol
+        "::Charisma::Measurement::#{measurement.to_s.camelize}".constantize
+      else
+        raise InvalidMeasurementError
+      end
+    end
   end
 end
