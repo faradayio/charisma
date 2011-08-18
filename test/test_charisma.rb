@@ -118,4 +118,9 @@ class TestCharisma < Test::Unit::TestCase
     amaroq = Spaceship.new :window_count => 8
     assert(amaroq.characteristics == { :window_count => 8 })
   end
+  
+  def test_020_to_hash
+    spaceship = Spaceship.new :name => 'Amaroq', :window_count => 2, :size => 10
+    assert_equal({:name => 'Amaroq', :window_count => '2 windows', :size => '10 m'}, spaceship.characteristics.to_hash)
+  end
 end

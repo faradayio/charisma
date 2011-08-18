@@ -41,6 +41,17 @@ module Charisma
     # (see #inpsect)
     def to_s; inspect end
     
+    # Provide a hash of display-friendly presentations of the computed characteristics' values.
+    #
+    # This is just a convenience method for a common use case, namely injecting a hash with the display-friendly presentations.
+    # @return [Hash]
+    def to_hash
+      characteristics.inject({}) do |memo, (k, v)|
+        memo[k] = v.to_s
+        memo
+      end
+    end
+    
     extend ::Forwardable
     def_delegators :characteristics, :[], :keys, :slice, :==, :each
     
