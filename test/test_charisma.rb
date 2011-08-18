@@ -123,4 +123,13 @@ class TestCharisma < Test::Unit::TestCase
     spaceship = Spaceship.new :name => 'Amaroq', :window_count => 2, :size => 10
     assert_equal({:name => 'Amaroq', :window_count => '2 windows', :size => '10 m'}, spaceship.characteristics.to_hash)
   end
+  
+  def test_021_dup
+    spaceship = Spaceship.new :name => 'Amaroq'
+    initial_characteristics = spaceship.characteristics.dup
+    assert_equal [:name], initial_characteristics.keys
+    spaceship.characteristics[:window_count] = 2
+    assert_equal [:name], initial_characteristics.keys
+    assert_equal [:name, :window_count], spaceship.characteristics.keys
+  end
 end

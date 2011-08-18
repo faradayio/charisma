@@ -52,6 +52,15 @@ module Charisma
       end
     end
     
+    # Provide a shallow copy.
+    #
+    # @return [Charisma::Curator]
+    def dup
+      shallow = super
+      shallow.instance_variable_set :@characteristics, characteristics.dup
+      shallow
+    end
+    
     extend ::Forwardable
     def_delegators :characteristics, :[], :keys, :slice, :==, :each
     
