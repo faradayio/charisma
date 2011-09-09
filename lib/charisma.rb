@@ -4,6 +4,7 @@ require 'active_support/version'
   active_support/inflector/methods
   active_support/core_ext/class/attribute_accessors
   active_support/core_ext/string/output_safety
+  active_support/core_ext/object/try
 }.each do |active_support_3_requirement|
   require active_support_3_requirement
 end if ActiveSupport::VERSION::MAJOR == 3

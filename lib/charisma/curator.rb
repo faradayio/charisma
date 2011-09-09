@@ -17,7 +17,12 @@ module Charisma
     # @param [Object] The subject of the curation -- an instance of a characterized class
     # @see Charisma::Base#characteristics
     def initialize(subject)
-      @characteristics = {}.extend LooseEquality
+      @characteristics = ::Hash.new do |h, key|
+        if characterization = subject.class.characterization[key]
+          Curation.new nil, characterization
+        end
+      end
+      @characteristics.extend LooseEquality
       @subject = subject
       subject.class.characterization.keys.each do |key|
         if subject.respond_to?(key) and value = subject.send(key)

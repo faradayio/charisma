@@ -22,7 +22,7 @@ module Charisma
       # @param [Charisma::Characteristic, optional] characteristic The associated characteristic definition
       def initialize(value, characteristic = nil)
         @characteristic = characteristic
-        establish_units_methods if characteristic && characteristic.measurement
+        establish_units_methods
         self.value = value
       end
       
@@ -49,12 +49,19 @@ module Charisma
       # Delegator method
       def __setobj__(obj); self.value = obj end
       
+      def units
+        characteristic.try(:measurement_class).try(:unit)
+      end
+      
+      def u
+        characteristic.try(:measurement_class).try(:unit_abbreviation)
+      end
+      
       private
       
-      # If this curation deals with a measured characteristic, this method will delegate <tt>#u</tt>, <tt>#units</tt>, and appropriate unit-name methods to <tt>#render</tt>.
+      # If this curation deals with a measured characteristic, this method will delegate appropriate unit-name methods like <tt>#kilograms</tt> to <tt>#render</tt>.
       def establish_units_methods
-        self.class.def_delegators :render, :u, :units
-        if conversions = Conversions.conversions[units.to_sym]
+        if characteristic and characteristic.measurement and conversions = Conversions.conversions[units.to_sym]
           self.class.def_delegators :render, *conversions.keys
         end
       end

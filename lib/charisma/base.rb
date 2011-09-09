@@ -6,7 +6,4 @@ module Charisma
       @curator ||= Curator.new(self)
     end
   end
-  
-  # Poorly-defined measurements raise this error.
-  class InvalidMeasurementError < StandardError; end
 end

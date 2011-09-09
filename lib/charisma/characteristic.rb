@@ -43,8 +43,6 @@ module Charisma
         measurement
       when ::Symbol
         "::Charisma::Measurement::#{measurement.to_s.camelize}".constantize
-      else
-        raise InvalidMeasurementError
       end
     end
   end
