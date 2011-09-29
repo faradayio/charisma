@@ -8,9 +8,6 @@ module Charisma
     # The curator's subject--the instance itself' 
     attr_reader :subject
     
-    # The hashed wrapped by the curator that actually stores the computed characteristics'
-    attr_reader :characteristics
-    
     # Create a Curator.
     #
     # Typically this is done automatically when <tt>#characteristics</tt> is called on an instance of a characterized class for the first time.
@@ -26,6 +23,7 @@ module Charisma
       end
     end
 
+    # The hashed wrapped by the curator that actually stores the computed characteristics'
     def characteristics
       return @characteristics unless @characteristics.nil?
 
