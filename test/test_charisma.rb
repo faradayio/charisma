@@ -1,4 +1,9 @@
-require 'helper'
+require File.expand_path('helper', File.dirname(__FILE__))
+
+require 'support/planet'
+require 'support/spaceship'
+require 'support/spaceship_fuel'
+require 'support/spaceship_make'
 
 class TestCharisma < Test::Unit::TestCase
   def test_001_simple_attribute_characteristic
