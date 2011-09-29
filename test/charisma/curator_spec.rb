@@ -17,6 +17,9 @@ describe Charisma::Curator do
     it "assigns characteristics on subject set to `false`" do
       @curator.characteristics[:weight].must_be_same_as false
     end
+    it "does not assign nil characteristics" do
+      @curator.characteristics.keys.wont_include :size
+    end
   end
 
   describe '#characteristics' do

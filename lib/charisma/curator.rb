@@ -26,7 +26,8 @@ module Charisma
       @subject = subject
       subject.class.characterization.keys.each do |key|
         if subject.respond_to?(key)
-          self[key] = subject.send(key)
+          value = subject.send(key)
+          self[key] = value unless value.nil?
         end
       end
     end
