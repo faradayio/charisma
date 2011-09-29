@@ -17,12 +17,6 @@ module Charisma
     # @param [Object] The subject of the curation -- an instance of a characterized class
     # @see Charisma::Base#characteristics
     def initialize(subject)
-      @characteristics = ::Hash.new do |h, key|
-        if characterization = subject.class.characterization[key]
-          Curation.new nil, characterization
-        end
-      end
-      @characteristics.extend LooseEquality
       @subject = subject
       subject.class.characterization.keys.each do |key|
         if subject.respond_to?(key)
@@ -30,6 +24,18 @@ module Charisma
           self[key] = value unless value.nil?
         end
       end
+    end
+
+    def characteristics
+      return @characteristics unless @characteristics.nil?
+
+      @characteristics = ::Hash.new do |h, key|
+        if characterization = subject.class.characterization[key]
+          Curation.new nil, characterization
+        end
+      end
+      @characteristics.extend LooseEquality
+      @characteristics
     end
     
     # Store a late-defined characteristic, with a Charisma wrapper.
