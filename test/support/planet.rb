@@ -17,4 +17,8 @@ class Planet < SuperModel::Base
       raise "unknown"
     end
   end
+
+  def as_json
+    { :name => name }
+  end
 end

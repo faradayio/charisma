@@ -26,7 +26,7 @@ module Charisma
         self.value = value
       end
       
-      def_delegators :render, :to_s
+      def_delegators :render_string, :to_s
 
       def ==(other)
         a = self.value
@@ -57,18 +57,29 @@ module Charisma
         characteristic.try(:measurement_class).try(:unit_abbreviation)
       end
       
+      # Render a JSON-like object for later conversion to JSON
+      def as_json
+        if characteristic.measurement
+          characteristic.measurement_class.new(value).as_json
+        elsif value.respond_to? :as_json
+          value.as_json
+        else
+          value
+        end
+      end
+
       private
       
       # If this curation deals with a measured characteristic, this method will delegate appropriate unit-name methods like <tt>#kilograms</tt> to <tt>#render</tt>.
       def establish_units_methods
         if characteristic and characteristic.measurement and conversions = Conversions.conversions[units.to_sym]
-          self.class.def_delegators :render, *conversions.keys
+          self.class.def_delegators :render_string, *conversions.keys
         end
       end
       
       # Provide a display-friendly presentation of the computed characteristic's value.
       # @return [String]
-      def render
+      def render_string
         return value unless characteristic
         if characteristic.proc
           render_proc
