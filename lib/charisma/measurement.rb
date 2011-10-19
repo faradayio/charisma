@@ -55,7 +55,7 @@ module Charisma
 
     # Provide a hash form
     def to_hash
-      { :value => value, :units => units }
+      { :value => value, :units => units.to_s }
     end
 
     # Provide a hash for later conversion to JSON
