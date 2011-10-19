@@ -147,6 +147,10 @@ irb(main):001:0> Foo.new(:size => 10).characteristics[:size].feet
  => 32.808399000000003
 ```
 
+## JSON
+
+Charisma now provides `#as_json` for characteristics---convert to actual JSON with your favorite JSON library's `#to_json`.
+
 ## Copyright
 
 Copyright (c) 2011 Andy Rossmeissl. See LICENSE for details.
