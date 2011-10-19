@@ -52,6 +52,16 @@ module Charisma
         super
       end
     end
+
+    # Provide a hash form
+    def to_hash
+      { :value => value, :units => units }
+    end
+
+    # Provide a hash for later conversion to JSON
+    def as_json
+      to_hash
+    end
     
     class << self
       # Define the units used with this measurement.
