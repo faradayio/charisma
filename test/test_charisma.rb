@@ -148,8 +148,8 @@ class TestCharisma < Test::Unit::TestCase
   def test_023_json
     planet = Planet.create :name => 'Pluto'
     spaceship = Spaceship.new :weight => 100, :window_count => 3, :destination => planet
-    assert_equal '{value: 100, units: "hollagrams"}', spaceship.characteristics[:weight].to_json
+    assert_equal '{"value": 100, "units": "hollagrams"}', spaceship.characteristics[:weight].to_json
     assert_equal '3', spaceship.characteristics[:window_count].to_json
-    assert_equal '{name: "Pluto"}', spaceship.characteristics[:destination].to_json
+    assert_equal '{"name": "Pluto"}', spaceship.characteristics[:destination].to_json
   end
 end
