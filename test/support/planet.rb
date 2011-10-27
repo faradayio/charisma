@@ -23,7 +23,7 @@ class Planet < SuperModel::Base
   end
 
   def <<(other)
-    raise TypeError, 'Planet#<< requires its argument to be a Planet'
+    raise TypeError, 'Planet#<< requires its argument to be a Planet' unless other.is_a? Planet
     name ||= ''
     name += other.name
   end
