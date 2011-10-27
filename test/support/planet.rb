@@ -21,4 +21,10 @@ class Planet < SuperModel::Base
   def as_json
     { :name => name }
   end
+
+  def <<(other)
+    raise TypeError, 'Planet#<< requires its argument to be a Planet'
+    name ||= ''
+    name += other.name
+  end
 end

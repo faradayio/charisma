@@ -152,4 +152,12 @@ class TestCharisma < Test::Unit::TestCase
     assert_equal 3, spaceship.characteristics[:window_count].as_json
     assert_equal({:name => 'Pluto'}, spaceship.characteristics[:destination].as_json)
   end
+
+  def test_024_operation_integrity
+    spaceship = Spaceship.new :name => 'Amaroq', :destination => Planet.new(:name => 'Pluto')
+    # this works because String#+ calls #to_str on its arg
+    assert_equal 'AmaroqAmaroq', spaceship.characteristics[:name] + spaceship.characteristics[:name]
+    # this is trickier because Spaceship#<< needs another Spaceship as its arg
+    assert_equal 'PlanetPlanet', spaceship.characteristics[:destination] << spaceship.characteristics[:destination] 
+  end
 end
