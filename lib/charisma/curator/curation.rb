@@ -58,7 +58,7 @@ module Charisma
       end
       
       # Render a JSON-like object for later conversion to JSON
-      def as_json
+      def as_json(*)
         if characteristic.measurement
           characteristic.measurement_class.new(value).as_json
         elsif value.respond_to? :as_json
