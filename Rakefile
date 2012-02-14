@@ -18,17 +18,15 @@ require 'rake'
 require 'bueller'
 Bueller::Tasks.new
 
+task :start_coverage do
+  SimpleCov.start
+end
+task :coverage => [:start_coverage, :test]
+
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.test_files = FileList['test/**/test_*.rb'] + FileList['test/**/*_spec.rb']
-  test.verbose = true
-end
-
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
   test.verbose = true
 end
 
