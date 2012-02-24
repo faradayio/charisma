@@ -23,17 +23,17 @@ module Charisma
       end
     end
 
-    # The hashed wrapped by the curator that actually stores the computed characteristics'
+    # The special hash wrapped by the curator that actually stores the computed characteristics.
     def characteristics
-      return @characteristics unless @characteristics.nil?
+      return @characteristics if @characteristics
 
-      @characteristics = ::Hash.new do |h, key|
+      hsh = Hash.new do |_, key|
         if characterization = subject.class.characterization[key]
           Curation.new nil, characterization
         end
       end
-      @characteristics.extend LooseEquality
-      @characteristics
+      hsh.extend LooseEquality
+      @characteristics = hsh
     end
     
     # Store a late-defined characteristic, with a Charisma wrapper.
@@ -51,13 +51,13 @@ module Charisma
     # (see #inpsect)
     def to_s; inspect end
     
-    # Provide a hash of display-friendly presentations of the computed characteristics' values.
+    # Provide a hash of the plain values (dropping presentation information).
     #
-    # This is just a convenience method for a common use case, namely injecting a hash with the display-friendly presentations.
+    # Previous versions of leap returned a hash of display-friendly representations; this was rather surprising and not especially useful.
     # @return [Hash]
     def to_hash
       characteristics.inject({}) do |memo, (k, v)|
-        memo[k] = v.to_s
+        memo[k] = v.value
         memo
       end
     end
