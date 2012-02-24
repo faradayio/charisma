@@ -23,17 +23,17 @@ module Charisma
       end
     end
 
-    # The hashed wrapped by the curator that actually stores the computed characteristics'
+    # The special hash wrapped by the curator that actually stores the computed characteristics.
     def characteristics
-      return @characteristics unless @characteristics.nil?
+      return @characteristics if @characteristics
 
-      @characteristics = ::Hash.new do |h, key|
+      hsh = Hash.new do |_, key|
         if characterization = subject.class.characterization[key]
           Curation.new nil, characterization
         end
       end
-      @characteristics.extend LooseEquality
-      @characteristics
+      hsh.extend LooseEquality
+      @characteristics = hsh
     end
     
     # Store a late-defined characteristic, with a Charisma wrapper.
