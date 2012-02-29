@@ -4,10 +4,9 @@ require 'charisma/version'
 Gem::Specification.new do |s|
   s.name = 'charisma'
   s.version = Charisma::VERSION
-  s.platform = Gem::Platform::RUBY
   s.authors = ['Andy Rossmeissl', 'Seamus Abshere']
   s.email = 'andy@rossmeissl.net'
-  s.homepage = 'http://github.com/brighterplanet/charisma'
+  s.homepage = 'https://github.com/brighterplanet/charisma'
   s.summary = %Q{Curate your rich Ruby objects' attributes}
   s.description = %Q{Define strategies for accessing and displaying a subset of your classes' attributes}
   s.extra_rdoc_files = [
