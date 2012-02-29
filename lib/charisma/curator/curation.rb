@@ -9,7 +9,7 @@ module Charisma
       extend ::Forwardable
       
       # The computed value of the characteristic
-      attr_accessor :value
+      attr_reader :value
       
       # The characteristic, as defined in the class's characterization
       # @return [Charisma::Characteristic]
@@ -23,13 +23,13 @@ module Charisma
       def initialize(value, characteristic = nil)
         @characteristic = characteristic
         establish_units_methods
-        self.value = value
+        @value = value
       end
       
       def_delegators :render_string, :to_s
 
       def ==(other)
-        a = self.value
+        a = @value
         b = other.respond_to?(:value) ? other.value : other
         a == b
       end
@@ -44,10 +44,10 @@ module Charisma
       end
       
       # Delegator method
-      def __getobj__; value end
+      def __getobj__; @value end
 
       # Delegator method
-      def __setobj__(obj); self.value = obj end
+      def __setobj__(obj); @value = obj end
       
       def units
         characteristic.try(:measurement_class).try(:unit)
