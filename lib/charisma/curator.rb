@@ -72,7 +72,7 @@ module Charisma
     end
     
     extend ::Forwardable
-    def_delegators :characteristics, :[], :keys, :slice, :==, :each
+    def_delegators :characteristics, :[], :keys, :slice, :hash, :==, :each
     
     # Loose equality for Hashlike objects
     #

@@ -7,6 +7,10 @@ class Spaceship < SuperModel::Base
   belongs_to :fuel, :class_name => 'SpaceshipFuel', :primary_key => 'name'
   belongs_to :destination, :class_name => 'Planet', :primary_key => 'name'
   
+  def ==(other)
+    attributes == other.attributes
+  end
+
   include Charisma
   characterize do
     has :make, :display_with => :name

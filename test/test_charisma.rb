@@ -152,4 +152,38 @@ class TestCharisma < Test::Unit::TestCase
     assert_equal 3, spaceship.characteristics[:window_count].as_json
     assert_equal({:name => 'Pluto'}, spaceship.characteristics[:destination].as_json)
   end
+
+  def test_024_equality_and_hash
+    # should be different
+    lite = Spaceship.new :weight => 1
+    heavy = Spaceship.new :weight => 999
+    assert(lite != heavy)
+    assert(lite.characteristics.hash != heavy.characteristics.hash)
+
+    lite_weight = lite.characteristics[:weight]
+    heavy_weight = heavy.characteristics[:weight]
+    assert(lite_weight != heavy_weight)
+    assert(lite_weight.hash != heavy_weight.hash)
+
+    lite_slice = lite.characteristics.slice(:weight)
+    heavy_slice = heavy.characteristics.slice(:weight)
+    assert(lite_slice != heavy_slice)
+    assert(lite_slice.hash != heavy_slice.hash)
+
+    # should be the same
+    lite1 = Spaceship.new :weight => 1
+    lite2 = Spaceship.new :weight => 1
+    assert_equal lite1, lite2
+    assert_equal lite1.characteristics.hash, lite2.characteristics.hash
+
+    lite1_weight = lite1.characteristics[:weight]
+    lite2_weight = lite2.characteristics[:weight]
+    assert_equal lite1_weight, lite2_weight
+    assert_equal lite1_weight.hash, lite2_weight.hash
+
+    lite1_slice = lite1.characteristics.slice(:weight)
+    lite2_slice = lite2.characteristics.slice(:weight)
+    assert_equal lite1_slice, lite2_slice
+    assert_equal lite1_slice.hash, lite2_slice.hash
+  end
 end
