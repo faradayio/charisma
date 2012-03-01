@@ -186,4 +186,11 @@ class TestCharisma < Test::Unit::TestCase
     assert_equal lite1_slice, lite2_slice
     assert_equal lite1_slice.hash, lite2_slice.hash
   end
+
+  def test_025_marshal
+    spaceship = Spaceship.new :name => 'Amaroq', :weight => 1_000_000
+    assert_kind_of Charisma::Curator, Marshal.load(Marshal.dump(spaceship.characteristics))
+    assert_equal 'Amaroq', Marshal.load(Marshal.dump(spaceship.characteristics))[:name].value
+    assert_equal '1,000,000 hg', Marshal.load(Marshal.dump(spaceship.characteristics))[:weight].to_s
+  end
 end

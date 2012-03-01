@@ -70,6 +70,17 @@ module Charisma
       shallow.instance_variable_set :@characteristics, characteristics.dup
       shallow
     end
+
+    def marshal_dump
+      [@subject, to_hash]
+    end
+
+    def marshal_load(src)
+      @subject, hsh = src
+      hsh.each do |k, v|
+        self[k] = v
+      end
+    end
     
     extend ::Forwardable
     def_delegators :characteristics, :[], :keys, :slice, :hash, :==, :each
