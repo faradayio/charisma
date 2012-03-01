@@ -34,10 +34,6 @@ module Charisma
         a == b
       end
 
-      def hash
-        @value.hash
-      end
-
       # An inspection method for more readable IRB sessions and logs.
       def inspect
         if characteristic
