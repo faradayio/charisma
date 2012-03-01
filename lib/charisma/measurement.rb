@@ -3,10 +3,6 @@ module Charisma
   #
   # @abstract An actual measurement class should inherit from this and use <tt>#units</tt> to define units.
   class Measurement
-    autoload :Length, 'charisma/measurement/length'
-    autoload :Mass, 'charisma/measurement/mass'
-    autoload :Speed, 'charisma/measurement/speed'
-    autoload :Time, 'charisma/measurement/time'
     
     # The quantity of the measured value
     attr_reader :value
