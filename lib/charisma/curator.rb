@@ -1,3 +1,4 @@
+require 'set'
 require 'forwardable'
 module Charisma
   # A Hash-like object that stores computed characteristics about an instance of a characterized class.
@@ -94,8 +95,17 @@ module Charisma
       #
       # Unlike Ruby's own <tt>Hash#==</tt>, this method uses the values' native <tt>#==</tt> methods, where available, to determine equality.
       # @param [Hash] other The other hash
+      #
+      # @private
+      # to_set is faster than sort_by (and much faster than sort)
+      # 1.9.3p125 :011 > f = ('a'..'zz').to_a.map(&:to_sym).sort_by { rand }; require 'benchmark'; require 'set'; Benchmark.realtime { 10_000.times { f.sort } }
+      # => 27.306745 
+      # 1.9.3p125 :012 > f = ('a'..'zz').to_a.map(&:to_sym).sort_by { rand }; require 'benchmark'; require 'set'; Benchmark.realtime { 10_000.times { f.sort_by { |k| k.to_s } } }
+      # => 6.176923 
+      # 1.9.3p125 :013 > f = ('a'..'zz').to_a.map(&:to_sym).sort_by { rand }; require 'benchmark'; require 'set'; Benchmark.realtime { 10_000.times { f.to_set } }
+      # => 3.377742 
       def ==(other)
-        return false unless keys.sort == other.keys.sort
+        return false unless keys.to_set == other.keys.to_set
         keys.all? do |k|
           self[k] == other[k]
         end

@@ -26,4 +26,14 @@ describe Charisma::Curator do
       @curator.characteristics[:size].value.must_be_nil
     end
   end
+
+  describe 'LooseEquality' do
+    # previously this blew up on 1.8.7
+    it '#==' do
+      (@curator == @curator).must_equal true
+      ship2 = Spaceship.new :window_count => 3
+      curator2 = Charisma::Curator.new ship2
+      (@curator == curator2).must_equal false
+    end
+  end
 end
