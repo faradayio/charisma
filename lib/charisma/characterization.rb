@@ -3,7 +3,6 @@ module Charisma
   #
   # Typically this is created with <tt>Charisma::Base::ClassMethods#characterize</tt>, and characteristics defined within it by the ensuing block.
   class Characterization < Hash
-    include Blockenspiel::DSL
     # Define a characteristic.
     #
     # This is used within <tt>Charisma::Base::ClassMethods#characterize</tt> blocks to curate attributes on a class. Internally, a <tt>Charisma::Characteristic</tt> is created to store the definition.

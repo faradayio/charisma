@@ -7,7 +7,6 @@ if ActiveSupport::VERSION::MAJOR >= 3
   require 'active_support/core_ext/object/try'
 end 
 
-require 'blockenspiel'
 require 'conversions'
 
 require 'charisma/base'
