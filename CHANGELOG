@@ -1,0 +1,12 @@
+unreleased
+
+* Enhancements
+
+  * Stop requiring blockenspiel - instance_eval is enough
+  * Switch to minitest and minitest-reporters
+  * Test on MRI 1.8, MRI 1.9, and JRuby 1.6.7+
+
+* Bug fixes
+
+  * Make sure Curation derives its hash code (#hash) directly from its value
+  * Fix test for setting `false` characteristic

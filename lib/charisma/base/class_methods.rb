@@ -15,7 +15,9 @@ module Charisma
       # The definition occurs within the block, using <tt>Charisma::Characterization#has</tt> as a DSL.
       # @see Charisma::Characterization#has
       def characterize(&blk)
-        Blockenspiel.invoke(blk, characterization) if block_given?
+        if block_given?
+          characterization.instance_eval(&blk)
+        end
       end
     end
   end

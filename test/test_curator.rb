@@ -1,5 +1,4 @@
-require File.expand_path('../spec_helper', File.dirname(__FILE__))
-require File.expand_path('../support/spaceship', File.dirname(__FILE__))
+require 'helper'
 
 describe Charisma::Curator do
   before do
@@ -15,7 +14,7 @@ describe Charisma::Curator do
       @curator.characteristics[:window_count].must_equal 3
     end
     it "assigns characteristics on subject set to `false`" do
-      @curator.characteristics[:weight].must_be_same_as false
+      @curator.characteristics[:weight].value.must_equal false
     end
     it "does not assign nil characteristics" do
       @curator.characteristics.keys.wont_include :size
