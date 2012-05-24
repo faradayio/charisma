@@ -76,8 +76,8 @@ module Charisma
       
       # If this curation deals with a measured characteristic, this method will delegate appropriate unit-name methods like <tt>#kilograms</tt> to <tt>#render</tt>.
       def establish_units_methods
-        if characteristic and characteristic.measurement and conversions = Conversions.conversions[units.to_sym]
-          self.class.def_delegators :render_string, *conversions.keys
+        if characteristic and characteristic.measurement and conversions = Alchemist.convertable_units(units.to_sym)
+          self.class.def_delegators :render_string, *conversions
         end
       end
       

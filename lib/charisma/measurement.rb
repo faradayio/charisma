@@ -42,7 +42,7 @@ module Charisma
     
     # Handle conversion methods
     def method_missing(*args)
-      if Conversions.conversions[units.to_sym][args.first]
+      if Alchemist.convertable?(units.to_sym, args.first.to_sym)
         to_f.send(units.to_sym).to(args.first)
       else
         super

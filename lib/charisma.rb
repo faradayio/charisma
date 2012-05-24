@@ -7,7 +7,7 @@ if ActiveSupport::VERSION::MAJOR >= 3
   require 'active_support/core_ext/object/try'
 end 
 
-require 'conversions'
+require 'alchemist'
 
 require 'charisma/base'
 require 'charisma/base/class_methods'
@@ -36,5 +36,3 @@ module Charisma
     base.extend Base::ClassMethods
   end
 end
-
-Conversions.register :metres, :feet, 3.2808399

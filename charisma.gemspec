@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   
   s.add_dependency 'activesupport'
-  s.add_dependency 'conversions'
+  #s.add_dependency 'alchemist'
 
   s.add_development_dependency 'bueller'
   s.add_development_dependency 'rake'

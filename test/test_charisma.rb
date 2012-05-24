@@ -20,7 +20,7 @@ describe Charisma do
     spaceship = Spaceship.new :weight => '1000000.1' # kg
     spaceship.characteristics[:weight].units.must_equal :hollagrams
     spaceship.characteristics[:weight].u.must_equal 'hg'
-    spaceship.characteristics[:weight].supertons.must_equal 2_000_000.2
+    assert_in_delta spaceship.characteristics[:weight].supertons.to_f, 200_000.02, 0.01
   end
   
   it "attribute_with_custom_display" do
