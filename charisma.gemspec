@@ -19,9 +19,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'bueller'
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'supermodel'
-  s.add_development_dependency 'minitest'
-  s.add_development_dependency 'minitest-reporters'
   s.add_development_dependency 'yard'
 end
