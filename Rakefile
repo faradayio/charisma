@@ -1,13 +1,10 @@
-#!/usr/bin/env rake
-require "bundler/gem_tasks"
+require 'bundler/setup'
+require 'bundler/gem_tasks'
 
-require 'rake'
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:examples)
+task :test => :examples
+task :default => :test
 
 require 'bueller'
 Bueller::Tasks.new
