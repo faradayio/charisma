@@ -10,6 +10,8 @@ Charisma is all about how your objects look to the outside world. We use it with
 
 See also: [RDocs](http://rubydoc.info/github/brighterplanet/charisma/master/frames).
 
+[![Build Status](https://secure.travis-ci.org/brighterplanet/charisma.png)](http://travis-ci.org/brighterplanet/charisma)
+
 ## Example
 
 ``` ruby
